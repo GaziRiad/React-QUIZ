@@ -18,7 +18,7 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
-  highscore: JSON.parse(localStorage.getItem("highscore")),
+  highscore: 0,
 };
 
 function reducer(state, action) {
@@ -57,6 +57,13 @@ function reducer(state, action) {
             : state.highscore > state.points
             ? state.highscore
             : localStorage.setItem("highscore", JSON.stringify(state.points)),
+      };
+
+    case "restartQuiz":
+      return {
+        ...initialState,
+        questions: state.questions,
+        status: "ready",
       };
 
     default:
@@ -123,6 +130,7 @@ export default function App() {
             points={points}
             maxPossiblePoints={maxPossiblePoints}
             highscore={highscore}
+            dispatch={dispatch}
           />
         )}
       </Main>
